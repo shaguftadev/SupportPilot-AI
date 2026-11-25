@@ -1,0 +1,13 @@
+SupportPilot Demo Help Center
+
+Refunds and cancellations
+Customers may request a refund within 14 calendar days of purchase if the product has not been used beyond the trial allowance. Refund requests must include the order number and the email address associated with the purchase. Refund processing typically takes 5 to 7 business days after approval. Cancelled subscriptions stop renewal at the end of the current billing period unless the customer requests an eligible immediate cancellation.
+
+Account access
+If a customer cannot sign in after resetting a password, verify that they are using the email address registered to the account. Password reset links expire after 30 minutes. Never ask a customer to send their password. If repeated attempts fail, escalate to account support and ask for the approximate time of the error and a screenshot with sensitive information hidden.
+
+Duplicate billing
+If a customer reports duplicate charges, collect transaction dates, amounts, the last four digits of the payment method, and the invoice number. Never request full card numbers or CVV. Billing specialists should compare the transactions and issue a correction if duplicate billing is confirmed.
+
+Mobile troubleshooting
+For app crashes, ask for device model, operating system version, app version, and steps to reproduce. Suggested first steps: restart the app, check for updates, and restart the device. If the issue continues, escalate with logs after removing personal data.

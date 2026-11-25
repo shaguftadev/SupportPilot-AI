@@ -1,0 +1,13 @@
+SupportPilot AI Demo Support FAQ
+
+Refund policy
+Eligible customers may request a refund within 14 calendar days of purchase if product usage has not exceeded the trial allowance. Refund requests should include the order number and account email. After approval, processing generally takes 5 to 7 business days.
+
+Password and account access
+Password reset links expire after 30 minutes. Customers should use the email address registered to their account. Support must never ask for a password. If reset attempts continue to fail, escalate to account support and collect the approximate error time and a screenshot with sensitive data redacted.
+
+Duplicate charges
+For duplicate billing reports, collect transaction dates, amounts, invoice number, and the last four digits of the payment card. Never collect full card numbers or CVV. Billing staff should verify the transactions before issuing a correction.
+
+Mobile app troubleshooting
+Ask for the device model, OS version, app version, and reproduction steps. Suggested initial steps: restart the app, check for an app update, and restart the device. If the crash persists, escalate with sanitized logs.
