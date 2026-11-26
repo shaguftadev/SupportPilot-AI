@@ -24,6 +24,7 @@ class Settings(BaseSettings):
     smtp_reply_to: str = ""
     smtp_use_tls: bool = True
     smtp_use_ssl: bool = False
+    workflow_checkpoint_enabled: bool = True
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 

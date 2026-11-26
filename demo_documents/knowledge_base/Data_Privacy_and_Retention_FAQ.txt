@@ -1,0 +1,5 @@
+SupportPilot Help Center — Privacy, Retention and Account Closure
+
+Verify account ownership and requested scope before deletion. Explain export options first. Do not claim deletion is complete until the responsible system confirms it. Retention varies by data type, plan, legal obligations, and policy; refer questions to the privacy team rather than inventing a period.
+
+Never ask users to send passwords, OTPs, CVVs, full card numbers, private keys, or API secrets. Ask for redacted screenshots and sanitized logs. For suspected unauthorized access, advise securing the account and route to the security escalation path.

@@ -1,0 +1,13 @@
+SUPPORTPILOT HELP CENTER — BILLING, REFUNDS & CANCELLATIONS
+
+Refund eligibility: Refund requests may be submitted within 14 calendar days of purchase if the product has not been used beyond the trial allowance. Requests must include the order number and the account email. A refund is not guaranteed until billing review is complete.
+
+Processing: Once approved, refunds typically take 5–7 business days to appear, depending on the payment provider and bank. Support agents should not promise an exact posting date.
+
+Cancellation: Cancelling a subscription stops future renewal. Access generally remains active until the end of the current paid billing period unless an eligible immediate cancellation is confirmed. Always verify the cancellation timestamp and renewal date before discussing charges.
+
+Duplicate charges: Collect transaction dates, amounts, invoice/reference numbers, and only the last four digits of the payment method. Never request a full card number, CVV, PIN, or banking password. Billing specialists compare the transactions and correct confirmed duplicates.
+
+Failed payment with bank debit: Ask for the payment reference and timestamp. A pending debit may reverse automatically; do not promise a reversal timeframe unless confirmed by the payment provider.
+
+Plan changes: Downgrades may take effect at the next renewal. Explain any feature changes and recommend exporting important data before a plan change if applicable. Do not promise that data will be deleted or retained beyond documented policy.

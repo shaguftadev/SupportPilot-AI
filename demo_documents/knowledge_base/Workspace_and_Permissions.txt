@@ -1,0 +1,11 @@
+SUPPORTPILOT HELP CENTER — WORKSPACES, SHARING & PERMISSIONS
+
+Dashboard sharing: Confirm the dashboard is shared with the intended workspace, group, or users. Verify the affected users' roles and whether they are active members. Do not grant access without workspace-admin authorization.
+
+Invitations: Confirm the invited email address and whether the invite is pending, expired, or already accepted. Ask the workspace admin to check member limits and role permissions. Never request the invitee's password.
+
+Ownership transfer: Ownership transfer requires verification of the current owner or an approved administrative process. If the current owner is unavailable, escalate to Workspace Administration and collect the workspace ID and requester role.
+
+Custom fields: Record the requested field name, data type, business purpose, and whether it should be required. Treat feature requests as feedback; do not claim a feature is on the roadmap unless confirmed by an official source.
+
+Accessibility feedback: Capture the affected workflow, assistive technology/browser if relevant, and a reproducible example. Route product feedback to the Product team without promising a delivery date.

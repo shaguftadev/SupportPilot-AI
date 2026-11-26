@@ -1,0 +1,7 @@
+SupportPilot Help Center — Workspace Administration
+
+Owners manage billing, ownership, and workspace-wide settings. Administrators manage members, integrations, and configuration. Agents work tickets within assigned permissions. Exact permissions can vary by plan.
+
+For invitations, confirm email, workspace, and invitation status; resend expired invitations from member management. For ownership transfer, verify the requester and escalate if the current owner is unavailable. Never transfer ownership based only on an email request.
+
+For access problems, confirm workspace membership, role, resource sharing, and the signed-in account before troubleshooting further.

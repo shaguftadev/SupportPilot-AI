@@ -1,0 +1,13 @@
+SUPPORTPILOT HELP CENTER — ACCOUNT SECURITY & ACCESS
+
+Password reset: Reset links expire after 30 minutes. Confirm the customer is using the registered email address. Never ask the customer to disclose their password or one-time code.
+
+Repeated sign-in failures: Ask for the approximate time of the error and a screenshot with sensitive information hidden. If repeated attempts fail after a reset, route to Account Support for verification.
+
+Verification emails: Ask the customer to check spam/junk and confirm the registered address is correct. If the message remains missing, escalate with the signup timestamp and email domain; do not ask for mailbox credentials.
+
+Two-factor authentication: Confirm the device clock is set automatically. Do not request an authenticator code. If the customer lost access to their second factor, follow the identity-verification process before recovery.
+
+Email or phone changes: Verify identity using the approved account-verification process before changing login or recovery details. Never update security information based solely on an email request.
+
+Account deletion: Confirm the requester's identity and workspace ownership. Explain the approved deletion process and retention requirements; do not claim deletion is complete until the system confirms it.

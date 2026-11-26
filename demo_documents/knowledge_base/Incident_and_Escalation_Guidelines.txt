@@ -1,0 +1,11 @@
+SUPPORTPILOT HELP CENTER — INCIDENTS & ESCALATION
+
+Urgent outage: If multiple users or an entire workspace cannot access the service, collect the workspace ID, approximate start time, affected region if known, error text, and a request/correlation ID. Mark urgent and route to Technical Support/Incident Response.
+
+Data discrepancy: Collect the report ID, dashboard filters, date range, expected and observed totals, and a sanitized sample. Do not alter customer data while investigating. Route to Analytics/Data Engineering when reproducible.
+
+Escalation criteria: Escalate security/privacy concerns, suspected data exposure, account takeover, payment disputes, widespread outages, repeated failures after documented troubleshooting, or requests requiring privileged changes.
+
+Communication: Acknowledge the impact, state what is known and what is being investigated, and avoid speculation. Never claim an incident is resolved until an authorized status confirms it. Provide the next update time only if the team can meet it.
+
+Agent safety: Do not ask for passwords, CVV, full payment-card numbers, one-time codes, private keys, or API secrets. Remove personal data from logs and screenshots before sharing internally.

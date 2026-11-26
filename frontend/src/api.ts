@@ -19,3 +19,6 @@ export const getReplies=(id:string)=>request<any[]>(`/tickets/${id}/replies`)
 export const sendReply=(id:string,body:string)=>request<any>(`/tickets/${id}/replies`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({body})})
 
 export const runSupportWorkflow=(id:string)=>request<any>(`/tickets/${id}/workflow`,{method:'POST'})
+
+export const resumeSupportWorkflow=(ticketId:string,workflowId:string,action:'approve'|'reject',draft_reply='',feedback='')=>request<any>(`/tickets/${ticketId}/workflow/${workflowId}/approval`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,draft_reply,feedback})})
+export const getSupportWorkflowState=(ticketId:string,workflowId:string)=>request<any>(`/tickets/${ticketId}/workflow/${workflowId}`)

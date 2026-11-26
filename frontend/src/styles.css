@@ -89,3 +89,64 @@
 .draft-box .result-title{font-size:11px}
 .draft-box .result-title span{font-size:9px}
 @media(max-width:520px){.workflow-result-v3 .workflow-hero{align-items:flex-start}.workflow-result-v3 .workflow-status-pill{margin-left:0}.workflow-sources-summary{gap:4px}}
+.workflow-review-controls{display:flex;flex-direction:column;gap:10px;padding:14px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}.workflow-review-controls label{display:flex;flex-direction:column;gap:7px;font-size:13px}.workflow-review-controls label strong{font-weight:650}.workflow-review-controls textarea{width:100%;box-sizing:border-box;resize:vertical;border:1px solid var(--border);border-radius:9px;padding:10px;font:inherit;background:var(--background);color:var(--text)}.workflow-review-controls small{font-size:12px;color:var(--muted);line-height:1.5}.workflow-review-controls .reply-actions{display:flex;gap:8px;flex-wrap:wrap}.workflow-review-controls .reply-actions button{flex:1;justify-content:center}
+
+/* Portfolio-ready dashboard analytics */
+.portfolio-analytics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:14px}
+.analytics-panel{min-width:0;padding:18px}
+.analytics-panel .panel-heading{margin-bottom:14px}
+.analytics-label{font-size:8px;font-weight:700;letter-spacing:.08em;color:#667085;background:#f2f4f7;border-radius:5px;padding:5px 7px;white-space:nowrap}
+.analytics-bars{display:flex;flex-direction:column;gap:11px}
+.analytics-bars .queue-row{margin:0}
+.analytics-bars .queue-label{font-size:10px}
+.analytics-bars .queue-track{height:7px}
+.queue-fill.billing{background:#6475e8}.queue-fill.account{background:#38a3b8}.queue-fill.technical{background:#8b5cf6}.queue-fill.product{background:#e6a23c}.queue-fill.general{background:#94a3b8}
+.queue-fill.urgent{background:#e5484d}.queue-fill.high{background:#f59e0b}.queue-fill.normal{background:#667eea}.queue-fill.low{background:#94a3b8}
+.resolution-panel{display:flex;flex-direction:column}
+.resolution-metric{display:flex;align-items:baseline;gap:8px;margin:4px 0 11px}
+.resolution-metric strong{font:800 31px Manrope;color:#101828;letter-spacing:-1px}
+.resolution-metric span{font-size:10px;color:#667085}
+.resolution-track{height:8px;border-radius:99px;background:#edf0f5;overflow:hidden}
+.resolution-track>span{display:block;height:100%;background:linear-gradient(90deg,#22c55e,#14b8a6);border-radius:99px;transition:width .4s ease}
+.resolution-foot{display:flex;justify-content:space-between;gap:8px;margin-top:12px;flex-wrap:wrap}
+.resolution-foot span{display:flex;align-items:center;gap:5px;font-size:9px;color:#667085}
+.metric-dot{width:7px;height:7px;border-radius:50%;display:inline-block}.metric-dot.green{background:#22c55e}.metric-dot.purple{background:#8b5cf6}
+.metric-disclaimer{font-size:9px;line-height:1.45;color:#98a2b3;margin-top:auto;padding-top:15px}
+@media(max-width:1100px){.portfolio-analytics{grid-template-columns:1fr 1fr}.resolution-panel{grid-column:span 2}}
+@media(max-width:760px){.portfolio-analytics{grid-template-columns:1fr}.resolution-panel{grid-column:auto}.analytics-panel{padding:14px}}
+
+/* Portfolio polish pass: softer depth, refined hierarchy, and demo-safe branding */
+:root{--surface:#fff;--border:#e7ebf2;--text:#182230;--muted:#667085;--accent:#6554d9}
+body{background:linear-gradient(135deg,#f7f8fc 0%,#f4f6fb 55%,#f8faff 100%)}
+.sidebar{background:linear-gradient(180deg,#111827 0%,#151c2c 100%);box-shadow:8px 0 28px rgba(15,23,42,.045)}
+.brand-icon{box-shadow:0 5px 16px rgba(99,102,241,.28)}
+.nav-item{transition:background .18s ease,color .18s ease,transform .18s ease}
+.nav-item:hover{transform:translateX(2px)}
+.nav-item.active{box-shadow:inset 2px 0 0 #a78bfa;background:linear-gradient(90deg,#302a50,#293247)}
+.topbar{background:rgba(255,255,255,.88);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(16,24,40,.025)}
+.demo-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid #d9d6fe;background:#f5f3ff;color:#6941c6;border-radius:999px;padding:5px 8px;font-size:9px;font-weight:800;letter-spacing:.055em;white-space:nowrap}
+.demo-badge-dot{width:6px;height:6px;border-radius:50%;background:#8b5cf6;box-shadow:0 0 0 3px #8b5cf620}
+.content{padding-top:32px}
+.page-heading h1{letter-spacing:-.8px}
+.page-heading h1 span{display:inline-block;color:#8b5cf6;transform:translateY(-1px)}
+.stat-card,.panel{box-shadow:0 2px 8px rgba(16,24,40,.025),0 10px 24px rgba(16,24,40,.025);transition:box-shadow .2s ease,transform .2s ease,border-color .2s ease}
+.stat-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(16,24,40,.06);border-color:#dce2ed}
+.panel{border-color:#e6eaf1}
+.panel-heading{padding-top:19px;padding-bottom:17px}
+.primary{background:linear-gradient(135deg,#6554d9,#5844c6);box-shadow:0 4px 10px rgba(91,69,214,.15);transition:transform .16s ease,box-shadow .16s ease,background .16s ease}
+.primary:hover{transform:translateY(-1px);box-shadow:0 6px 14px rgba(91,69,214,.22)}
+.secondary{transition:background .16s ease,border-color .16s ease,transform .16s ease}
+.secondary:hover{border-color:#d0d5dd;transform:translateY(-1px)}
+.search-global:focus-within,.toolbar-search:focus-within{border-color:#a5a0f2;box-shadow:0 0 0 3px #6554d910}
+input,textarea,select{transition:border-color .16s ease,box-shadow .16s ease}
+input:focus,textarea:focus,select:focus{outline:none;border-color:#8b83e8!important;box-shadow:0 0 0 3px #6554d910}
+tbody tr{transition:background .12s ease}
+tbody tr:hover{background:#f8f9ff}
+.status-badge,.priority{letter-spacing:.01em}
+.knowledge-banner{box-shadow:0 2px 8px rgba(99,102,241,.035)}
+.analytics-panel{box-shadow:0 2px 8px rgba(16,24,40,.025),0 10px 24px rgba(16,24,40,.025)}
+.workflow-result-v3{box-shadow:0 2px 8px rgba(16,24,40,.025)}
+.toast{box-shadow:0 10px 30px rgba(16,24,40,.14)}
+::-webkit-scrollbar{width:9px;height:9px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#d0d5dd;border-radius:999px;border:2px solid transparent;background-clip:padding-box}::-webkit-scrollbar-thumb:hover{background:#98a2b3;border:2px solid transparent;background-clip:padding-box}
+@media(max-width:900px){.demo-badge{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}}

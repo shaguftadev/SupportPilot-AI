@@ -107,46 +107,74 @@ async def analyze_ticket(ticket_id: str, db: Session=Depends(get_db)):
 
 @router.post("/tickets/{ticket_id}/workflow")
 async def run_support_workflow(ticket_id: str, db: Session=Depends(get_db)):
-    """Run the LangGraph ticket workflow and return an editable draft for human review."""
+    """Start a durable workflow and pause at the human approval checkpoint."""
     t=db.get(Ticket,ticket_id)
     if not t: raise HTTPException(404,"Ticket not found")
+    workflow_id=str(uuid.uuid4())
+    config={"configurable":{"thread_id":workflow_id}}
     try:
         from app.agents.support_workflow.graph import build_support_workflow
-        workflow=build_support_workflow()
+        from app.agents.support_workflow.checkpointer import get_checkpointer
+        workflow=build_support_workflow(get_checkpointer())
         result=await workflow.ainvoke({
-            "ticket_id":t.id,
-            "ticket_number":t.ticket_number,
-            "customer_name":t.customer_name,
-            "customer_email":t.customer_email,
-            "subject":t.subject,
-            "description":t.description,
-            "category":t.category,
-            "priority":t.priority,
-            "sentiment":t.sentiment,
-        })
+            "workflow_id":workflow_id, "ticket_id":t.id, "ticket_number":t.ticket_number,
+            "customer_name":t.customer_name, "customer_email":t.customer_email,
+            "subject":t.subject, "description":t.description, "category":t.category,
+            "priority":t.priority, "sentiment":t.sentiment,
+        }, config=config)
     except Exception as e:
         logger.exception("Support workflow execution failed")
         raise HTTPException(500, f"Agent workflow failed: {str(e)[:250]}")
-    # Persist the triage fields, but never send the email automatically.
-    if result.get("category"):
-        t.category=result["category"]
-    if result.get("priority") in ["low","normal","high","urgent"]:
-        t.priority=result["priority"]
-    if result.get("sentiment"):
-        t.sentiment=result["sentiment"]
+    if result.get("category"): t.category=result["category"]
+    if result.get("priority") in ["low","normal","high","urgent"]: t.priority=result["priority"]
+    if result.get("sentiment"): t.sentiment=result["sentiment"]
     db.commit(); db.refresh(t)
     citations=[{"document":d.get("filename","Unknown"),"page":d.get("page"),"snippet":d.get("text","")[:240],"score":d.get("score")} for d in result.get("retrieved_documents",[])[:5]]
-    return {
-        "workflow_status":result.get("workflow_status","awaiting_human_review"),
-        "route":result.get("route","general"),
+    return {"workflow_id":workflow_id,"workflow_status":result.get("workflow_status","awaiting_human_review"),"route":result.get("route","general"),
         "triage":{"category":result.get("category"),"priority":result.get("priority"),"sentiment":result.get("sentiment"),"summary":result.get("summary"),"intent":result.get("intent"),"mode":result.get("triage_mode")},
         "retrieval":{"route":result.get("retrieval_route"),"query":result.get("retrieval_query"),"count":len(result.get("retrieved_documents",[])),"citations":citations},
-        "resolution_recommendation":result.get("resolution_recommendation",""),
-        "draft_reply":result.get("draft_reply",""),
-        "modes":{"triage":result.get("triage_mode"),"resolution":result.get("resolution_mode"),"draft":result.get("draft_mode")},
-        "error":result.get("error"),
-        "ticket":ticket_dict(t),
-    }
+        "resolution_recommendation":result.get("resolution_recommendation",""),"draft_reply":result.get("draft_reply",""),
+        "modes":{"triage":result.get("triage_mode"),"resolution":result.get("resolution_mode"),"draft":result.get("draft_mode")},"error":result.get("error"),"ticket":ticket_dict(t)}
+
+@router.post("/tickets/{ticket_id}/workflow/{workflow_id}/approval")
+async def resume_support_workflow(ticket_id: str, workflow_id: str, payload: dict, db: Session=Depends(get_db)):
+    """Resume the paused graph with an approval/rejection decision."""
+    t=db.get(Ticket,ticket_id)
+    if not t: raise HTTPException(404,"Ticket not found")
+    action=str(payload.get("action", "")).lower()
+    if action not in {"approve","reject"}: raise HTTPException(400,"Action must be approve or reject")
+    edited_reply=str(payload.get("draft_reply", "")).strip()
+    if action=="approve" and not edited_reply: raise HTTPException(400,"Approved reply cannot be empty")
+    try:
+        from langgraph.types import Command
+        from app.agents.support_workflow.graph import build_support_workflow
+        from app.agents.support_workflow.checkpointer import get_checkpointer
+        workflow=build_support_workflow(get_checkpointer())
+        config={"configurable":{"thread_id":workflow_id}}
+        feedback=str(payload.get("feedback", "")).strip()
+        if action=="reject" and not feedback: raise HTTPException(400,"Please provide feedback explaining why the recommendation is rejected.")
+        result=await workflow.ainvoke(Command(resume={"action":action,"draft_reply":edited_reply,"feedback":feedback}),config=config)
+    except Exception as e:
+        logger.exception("Workflow resume failed")
+        raise HTTPException(500,f"Workflow resume failed: {str(e)[:250]}")
+    citations=[{"document":d.get("filename","Unknown"),"page":d.get("page"),"snippet":d.get("text","")[:240],"score":d.get("score")} for d in result.get("retrieved_documents",[])[:5]]
+    return {"workflow_id":workflow_id,"workflow_status":result.get("workflow_status"),"approval_decision":result.get("approval_decision"),"draft_reply":result.get("approved_reply") or result.get("draft_reply"),"resolution_recommendation":result.get("resolution_recommendation"),"human_feedback":result.get("human_feedback"),"revision_count":result.get("revision_count",0),"retrieval":{"count":len(result.get("retrieved_documents",[])),"citations":citations},"message":"Approval recorded. Email delivery remains a separate action." if action=="approve" else "Feedback recorded. The AI revised its recommendation and is awaiting your review."}
+
+@router.get("/tickets/{ticket_id}/workflow/{workflow_id}")
+async def get_support_workflow_state(ticket_id: str, workflow_id: str):
+    """Read persisted workflow state by checkpoint thread ID."""
+    try:
+        from app.agents.support_workflow.graph import build_support_workflow
+        from app.agents.support_workflow.checkpointer import get_checkpointer
+        workflow=build_support_workflow(get_checkpointer())
+        snapshot=workflow.get_state({"configurable":{"thread_id":workflow_id}})
+        if not snapshot or not snapshot.values: raise HTTPException(404,"Workflow checkpoint not found")
+        values=snapshot.values
+        return {"workflow_id":workflow_id,"workflow_status":values.get("workflow_status"),"approval_decision":values.get("approval_decision"),"draft_reply":values.get("draft_reply"),"resolution_recommendation":values.get("resolution_recommendation"),"next":list(snapshot.next or [])}
+    except HTTPException: raise
+    except Exception as e:
+        logger.exception("Checkpoint lookup failed")
+        raise HTTPException(500,f"Checkpoint lookup failed: {str(e)[:250]}")
 
 @router.post("/tickets/{ticket_id}/draft")
 async def draft_reply(ticket_id: str, db: Session=Depends(get_db)):

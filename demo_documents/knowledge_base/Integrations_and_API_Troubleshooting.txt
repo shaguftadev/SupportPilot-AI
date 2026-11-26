@@ -1,0 +1,9 @@
+SupportPilot Help Center — Integrations and API Troubleshooting
+
+If authorization succeeds but data does not appear, verify selected folders/scopes, workspace permissions, and last sync timestamp. Re-authorize only when the user is an authorized administrator.
+
+Webhook troubleshooting: collect event type, delivery ID, timestamp, response code, and sanitized endpoint logs. Retries can produce duplicate deliveries; consumers should be idempotent. Never share signing keys.
+
+API errors: 401—verify token validity/rotation; 403—verify roles and scopes; 429—respect Retry-After and use exponential backoff with jitter; 5xx—capture request ID and timestamp and escalate if persistent.
+
+For pagination, use the cursor from the prior response and do not change filters mid-pagination.

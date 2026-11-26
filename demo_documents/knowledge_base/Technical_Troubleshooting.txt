@@ -1,0 +1,13 @@
+SUPPORTPILOT HELP CENTER — TECHNICAL TROUBLESHOOTING
+
+Mobile app crash: Collect device model, OS version, app version, approximate crash time, and steps to reproduce. Ask the customer to restart the app, check for updates, and restart the device. If the issue persists, escalate with sanitized logs.
+
+CSV import: Ask for the import job ID, file type, file size, and approximate start time. Do not ask the customer to repeatedly upload the same file. For stuck jobs, preserve the job ID and escalate to Data Processing. Sensitive data should be removed from sample files.
+
+Report download: Ask which browser and OS are used, whether the report generation completes, and whether another browser reproduces the issue. Capture a sanitized screenshot and report ID. Do not ask for access to the customer's device.
+
+Search indexing: If newly created tickets do not appear in search, confirm the time range and filters. Collect example ticket IDs and the time the tickets were created, then escalate if the issue persists.
+
+API rate limits: A 429 response indicates requests are being throttled. Use exponential backoff with jitter, respect Retry-After when present, and avoid aggressive retry loops. Ask for request timestamps and request IDs, not API secrets.
+
+Notifications: Collect affected notification type, recipient count, message timestamp, and notification/event ID. Check spam folders and notification settings; escalate suspected delivery delays with IDs.

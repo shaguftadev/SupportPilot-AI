@@ -86,3 +86,41 @@ async def draft_customer_reply(state: SupportWorkflowState) -> dict:
         answer = f"Hi {customer},\n\nThank you for contacting us about {subject}. I’m sorry for the inconvenience. Our team is reviewing the details and will investigate further. We’ll follow up with next steps as soon as we have more information.\n\nBest,\nSupport Team"
         provider = "demo"
     return {"draft_reply": answer.strip(), "draft_mode": provider, "workflow_status": "awaiting_human_review"}
+
+
+def human_review(state: SupportWorkflowState) -> dict:
+    """Pause execution until an agent explicitly approves or rejects the draft."""
+    from langgraph.types import interrupt
+    decision = interrupt({
+        "type": "human_review_required",
+        "ticket_number": state.get("ticket_number"),
+        "recommendation": state.get("resolution_recommendation", ""),
+        "draft_reply": state.get("draft_reply", ""),
+        "workflow_id": state.get("workflow_id"),
+        "revision_count": state.get("revision_count", 0),
+    })
+    action = str((decision or {}).get("action", "reject")).lower()
+    if action == "approve":
+        return {"approval_decision": "approved", "approved_reply": str((decision or {}).get("draft_reply") or state.get("draft_reply", "")), "workflow_status": "approved_for_send"}
+    feedback = str((decision or {}).get("feedback", "")).strip()
+    return {"approval_decision": "rejected", "human_feedback": feedback, "revision_count": int(state.get("revision_count", 0)) + 1, "workflow_status": "revising_after_rejection"}
+
+async def revise_recommendation(state: SupportWorkflowState) -> dict:
+    feedback = state.get("human_feedback", "")
+    docs = state.get("retrieved_documents", [])
+    context = "\n\n".join(f"[{d.get('filename', 'Source')} | page {d.get('page')}] {d.get('text', '')}" for d in docs[:5])
+    prompt = f"Revise the previous support recommendation using the human reviewer feedback. Do not ignore the feedback. Do not claim actions have happened. Ground policy claims only in the provided knowledge and say when evidence is insufficient.\nTicket: {state.get('subject')}\nDescription: {state.get('description')}\nPrevious recommendation: {state.get('resolution_recommendation')}\nReviewer feedback: {feedback}\nKnowledge: {context or 'No relevant knowledge retrieved.'}\nProvide a concise revised recommendation and next step."
+    answer, provider = await generate(prompt, "You are a careful support analyst revising a recommendation based on human feedback.")
+    if not answer:
+        answer = f"Reviewer feedback: {feedback}\n\nRevised next step: Follow the reviewer’s instruction and gather any missing information before promising a resolution."
+        provider = "demo"
+    return {"resolution_recommendation": answer.strip(), "resolution_mode": provider, "workflow_status": "recommendation_revised", "approval_decision": "pending", "human_feedback": feedback}
+
+def approval_router(state: SupportWorkflowState) -> str:
+    return "approved" if state.get("approval_decision") == "approved" else "rejected"
+
+def approval_complete(state: SupportWorkflowState) -> dict:
+    return {"workflow_status": "approved_for_send"}
+
+def approval_rejected(state: SupportWorkflowState) -> dict:
+    return {"workflow_status": "revising_after_rejection"}

@@ -1,0 +1,9 @@
+SupportPilot Help Center — Plans and Billing FAQ
+
+Upgrades may take effect immediately and may include prorated charges. Downgrades generally take effect at the next renewal unless billing confirms an exception. Check the invoice preview before quoting an amount.
+
+Cancellation usually stops future renewal and preserves access through the paid-through date. Confirm cancellation status and timestamp before discussing renewal charges.
+
+Billing documents are typically available in Workspace Settings > Billing > History. For missing documents, collect invoice reference, payment date, and billing email.
+
+Usage charges depend on the metric and billing period shown on the invoice. Ask for the line item and period; do not guess. Never request a full card number, CVV, banking password, or OTP.

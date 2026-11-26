@@ -17,3 +17,9 @@ class SupportWorkflowState(TypedDict, total=False):
     draft_reply: str
     workflow_status: str
     error: str
+    workflow_id: str
+    approval_decision: str
+    approved_reply: str
+    human_feedback: str
+    revision_count: int
+

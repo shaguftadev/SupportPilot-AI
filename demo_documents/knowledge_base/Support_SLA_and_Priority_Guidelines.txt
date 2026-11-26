@@ -1,0 +1,10 @@
+SupportPilot Help Center — Service Levels and Ticket Priority
+
+Urgent: widespread outage, suspected security incident, critical workflow blocked for multiple users, or privacy exposure. Acknowledge promptly and escalate to incident lead. Do not promise a resolution time unless confirmed.
+High: major feature unavailable for a team, payment issue affecting access, or time-sensitive business workflow blocked. Gather reproducible details and route to responsible team.
+Normal: individual questions, standard troubleshooting, billing clarifications, and issues with a workaround.
+Low: feature requests, cosmetic issues, general feedback, and non-blocking questions.
+
+Illustrative response targets: Urgent—15 minutes; High—4 business hours; Normal—1 business day; Low—3 business days. These are demo targets, not guarantees; verify the customer's contract and staffed hours before quoting.
+
+Escalation checklist: ticket number, impact, affected users, start time, steps to reproduce, error message, environment, workaround tried, and sanitized logs. Never include passwords, tokens, full card data, or unnecessary personal information.

@@ -12,7 +12,10 @@ from app.seed import seed
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     seed()
+    from app.agents.support_workflow.checkpointer import initialize_checkpointer, close_checkpointer
+    await initialize_checkpointer()
     yield
+    await close_checkpointer()
 
 app=FastAPI(title="SupportPilot AI",version="1.0.0",description="AI-assisted customer support workspace",lifespan=lifespan)
 app.add_middleware(CORSMiddleware,allow_origins=settings.cors_origin_list,allow_credentials=True,allow_methods=["*"],allow_headers=["*"],)
