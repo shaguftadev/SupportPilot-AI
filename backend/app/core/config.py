@@ -3,9 +3,11 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     app_env: str = "development"
+    demo_mode: bool = True
     app_secret: str = "development-only-secret"
     database_url: str = "postgresql+psycopg://supportpilot:supportpilot@localhost:5432/supportpilot"
     qdrant_url: str = "http://localhost:6333"
+    qdrant_api_key: str = ""
     qdrant_collection: str = "supportpilot_knowledge"
     llm_provider: str = "groq"
     groq_api_key: str = ""

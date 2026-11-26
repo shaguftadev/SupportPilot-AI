@@ -15,7 +15,10 @@ async def initialize_checkpointer():
         return None
     if _checkpointer is not None:
         return _checkpointer
-    url = settings.database_url.replace("postgresql+psycopg://", "postgresql://")
+    url = settings.database_url
+    if url.startswith("postgres://"):
+        url = "postgresql://" + url[len("postgres://"):]
+    url = url.replace("postgresql+psycopg://", "postgresql://")
     _connection = await AsyncConnection.connect(url, autocommit=True, row_factory=dict_row)
     _checkpointer = AsyncPostgresSaver(_connection)
     await _checkpointer.setup()

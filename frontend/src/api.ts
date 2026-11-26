@@ -1,4 +1,4 @@
-const API='/api'
+const API=(import.meta.env.VITE_API_BASE_URL || '/api').replace(/\/$/, '')
 export async function request<T=any>(path:string, options:RequestInit={}):Promise<T>{
   const response=await fetch(API+path,options)
   if(!response.ok){let msg=`Request failed (${response.status})`;try{const d=await response.json();msg=d.detail||msg}catch{};throw new Error(msg)}

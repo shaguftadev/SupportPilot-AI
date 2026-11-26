@@ -3,7 +3,7 @@ from qdrant_client import QdrantClient, models
 from app.core.config import settings
 from app.services.embeddings import embed_texts
 
-client = QdrantClient(url=settings.qdrant_url, timeout=30)
+client = QdrantClient(url=settings.qdrant_url, api_key=settings.qdrant_api_key or None, timeout=30)
 VECTOR_SIZE = 384
 
 def ensure_collection() -> None:

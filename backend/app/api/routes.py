@@ -72,23 +72,26 @@ def send_reply(ticket_id: str, payload: dict, db: Session=Depends(get_db)):
     body=str(payload.get("body", "")).strip()
     if not body: raise HTTPException(400,"Reply cannot be empty")
     if len(body)>10000: raise HTTPException(400,"Reply is too long")
-    # Deliver the message first; only save it to conversation history after SMTP confirms submission.
-    try:
-        send_customer_email(
-            to_email=t.customer_email,
-            customer_name=t.customer_name,
-            subject=f"Re: {t.subject} [{t.ticket_number}]",
-            body=body,
-        )
-    except RuntimeError as e:
-        raise HTTPException(503, str(e))
-    except Exception as e:
-        raise HTTPException(502, f"Email delivery failed: {str(e)[:250]}")
+    # Demo mode never sends email to real or synthetic addresses. It records a simulated delivery.
+    delivery_status = "simulated"
+    if not settings.demo_mode:
+        try:
+            send_customer_email(
+                to_email=t.customer_email,
+                customer_name=t.customer_name,
+                subject=f"Re: {t.subject} [{t.ticket_number}]",
+                body=body,
+            )
+            delivery_status = "email_sent"
+        except RuntimeError as e:
+            raise HTTPException(503, str(e))
+        except Exception as e:
+            raise HTTPException(502, f"Email delivery failed: {str(e)[:250]}")
     reply=TicketReply(ticket_id=ticket_id, sender_type="agent", sender_name="Jordan Davis", body=body)
     db.add(reply)
     if t.status=="open": t.status="in_progress"
     db.commit(); db.refresh(reply); db.refresh(t)
-    return {"id":reply.id,"ticket_id":reply.ticket_id,"sender_type":reply.sender_type,"sender_name":reply.sender_name,"body":reply.body,"created_at":reply.created_at,"ticket":ticket_dict(t),"delivery":"email_sent"}
+    return {"id":reply.id,"ticket_id":reply.ticket_id,"sender_type":reply.sender_type,"sender_name":reply.sender_name,"body":reply.body,"created_at":reply.created_at,"ticket":ticket_dict(t),"delivery":delivery_status}
 
 @router.post("/tickets/{ticket_id}/analyze")
 async def analyze_ticket(ticket_id: str, db: Session=Depends(get_db)):
