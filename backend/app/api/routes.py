@@ -1,4 +1,4 @@
-import uuid, re, shutil
+import uuid, re, shutil, logging
 from pathlib import Path
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Query
 from sqlalchemy.orm import Session
@@ -13,6 +13,7 @@ from app.services.llm import generate, demo_grounded_answer
 from app.services.email_service import send_customer_email
 
 router=APIRouter(prefix="/api")
+logger=logging.getLogger(__name__)
 
 def ticket_dict(t: Ticket):
     return {"id":t.id,"ticket_number":t.ticket_number,"customer_name":t.customer_name,"customer_email":t.customer_email,
@@ -103,6 +104,49 @@ async def analyze_ticket(ticket_id: str, db: Session=Depends(get_db)):
         answer=f"Summary: {t.description[:220]}\nCategory: {category}\nSentiment: {sentiment}\nSuggested urgency: {urgency}\nRecommended next step: Acknowledge the issue, verify the relevant account details, and investigate before promising a resolution."
         t.category=category; t.sentiment=sentiment; t.priority=urgency; db.commit()
     return {"analysis":answer,"mode":mode,"ticket":ticket_dict(t)}
+
+@router.post("/tickets/{ticket_id}/workflow")
+async def run_support_workflow(ticket_id: str, db: Session=Depends(get_db)):
+    """Run the LangGraph ticket workflow and return an editable draft for human review."""
+    t=db.get(Ticket,ticket_id)
+    if not t: raise HTTPException(404,"Ticket not found")
+    try:
+        from app.agents.support_workflow.graph import build_support_workflow
+        workflow=build_support_workflow()
+        result=await workflow.ainvoke({
+            "ticket_id":t.id,
+            "ticket_number":t.ticket_number,
+            "customer_name":t.customer_name,
+            "customer_email":t.customer_email,
+            "subject":t.subject,
+            "description":t.description,
+            "category":t.category,
+            "priority":t.priority,
+            "sentiment":t.sentiment,
+        })
+    except Exception as e:
+        logger.exception("Support workflow execution failed")
+        raise HTTPException(500, f"Agent workflow failed: {str(e)[:250]}")
+    # Persist the triage fields, but never send the email automatically.
+    if result.get("category"):
+        t.category=result["category"]
+    if result.get("priority") in ["low","normal","high","urgent"]:
+        t.priority=result["priority"]
+    if result.get("sentiment"):
+        t.sentiment=result["sentiment"]
+    db.commit(); db.refresh(t)
+    citations=[{"document":d.get("filename","Unknown"),"page":d.get("page"),"snippet":d.get("text","")[:240],"score":d.get("score")} for d in result.get("retrieved_documents",[])[:5]]
+    return {
+        "workflow_status":result.get("workflow_status","awaiting_human_review"),
+        "route":result.get("route","general"),
+        "triage":{"category":result.get("category"),"priority":result.get("priority"),"sentiment":result.get("sentiment"),"summary":result.get("summary"),"intent":result.get("intent"),"mode":result.get("triage_mode")},
+        "retrieval":{"route":result.get("retrieval_route"),"query":result.get("retrieval_query"),"count":len(result.get("retrieved_documents",[])),"citations":citations},
+        "resolution_recommendation":result.get("resolution_recommendation",""),
+        "draft_reply":result.get("draft_reply",""),
+        "modes":{"triage":result.get("triage_mode"),"resolution":result.get("resolution_mode"),"draft":result.get("draft_mode")},
+        "error":result.get("error"),
+        "ticket":ticket_dict(t),
+    }
 
 @router.post("/tickets/{ticket_id}/draft")
 async def draft_reply(ticket_id: str, db: Session=Depends(get_db)):

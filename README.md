@@ -22,7 +22,8 @@ The first knowledge-base upload downloads the FastEmbed model in the API contain
 ## Demo walkthrough
 
 - Explore seeded tickets on the dashboard.
-- Open a ticket, run **AI Analyze**, and generate a suggested reply.
+- Open a ticket and try **Run agentic workflow**. LangGraph performs triage, conditional routing, Qdrant retrieval, resolution recommendation, and reply drafting; the draft remains subject to human review.
+- You can still use **AI Analyze** and **Draft customer reply** independently.
 - Go to Knowledge Base and upload `demo_documents/SupportPilot_Demo_FAQ.txt` (or your own PDF, DOCX, or TXT support document).
 - Ask the AI Assistant a question about the uploaded document.
 - Review source citations and use the generated answer as a draft; agents remain in control.
@@ -48,6 +49,7 @@ The first knowledge-base upload downloads the FastEmbed model in the API contain
 - `PATCH /api/tickets/{id}` update
 - `POST /api/tickets/{id}/analyze` AI ticket analysis
 - `POST /api/tickets/{id}/draft` response draft
+- `POST /api/tickets/{id}/workflow` LangGraph agentic workflow
 - `GET /api/documents` knowledge sources
 - `POST /api/documents/upload` ingest PDF/DOCX/TXT
 - `DELETE /api/documents/{id}` remove source
@@ -59,7 +61,7 @@ Requires Python 3.11+. From `backend/`: create a venv, install `requirements.txt
 
 ## Architecture
 
-See `docs/ARCHITECTURE.md`.
+See `docs/ARCHITECTURE.md` and `docs/AGENTIC_WORKFLOW.md`.
 
 ## Interview/demo materials
 

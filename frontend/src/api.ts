@@ -17,3 +17,5 @@ export const chat=(question:string)=>request('/assistant/chat',{method:'POST',he
 
 export const getReplies=(id:string)=>request<any[]>(`/tickets/${id}/replies`)
 export const sendReply=(id:string,body:string)=>request<any>(`/tickets/${id}/replies`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({body})})
+
+export const runSupportWorkflow=(id:string)=>request<any>(`/tickets/${id}/workflow`,{method:'POST'})

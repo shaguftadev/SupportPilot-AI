@@ -3,3 +3,89 @@
 @media(max-width:1100px){.sidebar{width:215px}.main{margin-left:215px}.content{padding:24px}.stats-grid{grid-template-columns:repeat(2,1fr)}.dashboard-grid{grid-template-columns:1fr}.assistant-layout{grid-template-columns:1fr}.assistant-side{display:grid;grid-template-columns:1fr 1fr;gap:12px}.side-card{margin:0}}@media(max-width:760px){.sidebar{width:66px;padding:15px 8px}.brand{padding:0 5px 20px}.brand>div:last-child,.workspace,.nav-label,.nav-item span,.sidebar-bottom .ai-status,.profile>div,.profile>svg{display:none}.brand-icon{width:40px}.nav-item{justify-content:center;padding:12px 4px}.nav-item svg{width:19px}.profile{justify-content:center;padding:4px}.main{margin-left:66px}.topbar{padding:0 14px}.breadcrumb{display:none}.search-global{width:190px}.content{padding:20px 14px}.page-heading{align-items:flex-start;gap:10px}.page-heading h1{font-size:21px}.page-heading p{max-width:260px;line-height:1.5}.stats-grid{gap:9px}.stat-card{padding:13px;min-height:120px}.dashboard-grid{gap:12px}.ticket-toolbar{flex-direction:column;align-items:stretch}.toolbar-search{width:100%}.toolbar-search input{flex:1}.knowledge-banner{flex-wrap:wrap}.knowledge-banner .secondary{margin-left:0}.assistant-side{grid-template-columns:1fr}.chat-panel{min-height:65vh}.page-heading .primary{padding:9px;font-size:10px}.upload-btn{font-size:11px}.ticket-drawer{padding:18px}.top-actions{gap:9px}.top-actions>.avatar{display:none}}
 
 .reply-actions{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:9px}.reply-actions .primary{font-size:11px;padding:8px 11px}.demo-delivery-note{display:block;color:#98a2b3;font-size:9px;margin-top:7px}.conversation{padding:15px 0;border-bottom:1px solid #eef1f5}.conversation h3{font:700 12px Manrope;display:flex;align-items:center;gap:6px;margin:0 0 10px;color:#475467}.conversation-empty{font-size:11px;color:#98a2b3;margin:0}.conversation-reply{background:#f8fafc;border:1px solid #e8ecf2;border-radius:8px;padding:10px;margin:8px 0}.conversation-meta{display:flex;justify-content:space-between;gap:8px;font-size:10px;color:#667085}.conversation-meta strong{color:#344054}.conversation-reply p{white-space:pre-wrap;font-size:11px;line-height:1.6;color:#475467;margin:9px 0}.conversation-reply .demo-tag{display:inline-block;margin:0}
+
+.workflow-button{margin:8px 0 12px;background:linear-gradient(110deg,#5b45d6,#7c5ce8)}.workflow-result{border:1px solid #d9d2ff;background:#faf9ff;border-radius:10px;padding:12px;margin:10px 0 13px}.workflow-steps{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0 12px}.workflow-steps span{font-size:9px;padding:5px 7px;border-radius:6px;background:#f0fdf4;color:#15803d}.workflow-steps .review{background:#fff7ed;color:#c2410c}.workflow-section{padding:9px 0;border-top:1px solid #e9e4ff}.workflow-section strong{font-size:10px;color:#6941c6}.workflow-section p{font-size:11px;line-height:1.6;color:#475467;white-space:pre-wrap;margin:6px 0}.workflow-section small{font-size:10px;color:#667085}.workflow-note{display:block;font-size:9px;line-height:1.5;color:#667085;margin-top:7px}
+
+/* Milestone 2 workflow UX refresh */
+.workflow-result-v2{background:#fff;border-color:#e5e7eb;padding:0;overflow:hidden;color:#344054}
+.workflow-hero{display:flex;align-items:flex-start;gap:10px;padding:14px;background:linear-gradient(120deg,#f5f3ff,#f8fafc)}
+.workflow-hero-icon{display:flex;align-items:center;justify-content:center;width:34px;height:34px;flex-shrink:0;border-radius:10px;background:#ede9fe;color:#6d28d9}
+.workflow-hero-copy{display:flex;flex:1;flex-direction:column;gap:4px}
+.workflow-hero-copy strong{font-size:12px;color:#344054}
+.workflow-hero-copy span{font-size:11px;line-height:1.55;color:#667085}
+.workflow-status-pill{display:flex;align-items:center;gap:4px;border-radius:999px;padding:5px 8px;background:#ecfdf3;color:#027a48;font-size:9px;font-weight:700;white-space:nowrap}
+.workflow-progress{height:3px;background:#f2f4f7}.progress-done{display:block;width:100%;height:100%;background:#8b5cf6}
+.workflow-step-list{padding:4px 13px 2px}
+.workflow-step-card{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid #eef0f4}
+.workflow-step-icon{display:flex;align-items:center;justify-content:center;width:25px;height:25px;border-radius:50%;flex-shrink:0;margin-top:1px}
+.workflow-step-icon.done{background:#ecfdf3;color:#039855}
+.workflow-step-content{min-width:0;flex:1}
+.workflow-step-content>strong{display:block;font-size:11px;color:#344054}
+.workflow-step-content>p{font-size:10px;line-height:1.55;color:#667085;margin:4px 0 7px}
+.workflow-chips{display:flex;gap:5px;flex-wrap:wrap}
+.workflow-chips span{background:#f2f4f7;color:#475467;border-radius:5px;padding:4px 6px;font-size:9px}
+.workflow-step-result{background:#f8fafc;border:1px solid #eaecf0;border-radius:7px;padding:8px;font-size:10px;line-height:1.55;color:#475467;white-space:pre-wrap;margin-top:7px}
+.workflow-step-result b{display:block;font-size:9px;color:#667085;margin-bottom:3px}
+.workflow-route-label{display:inline-block;background:#f4f3ff;color:#6941c6;border-radius:5px;padding:5px 7px;font-size:10px;font-weight:700;text-transform:capitalize}
+.workflow-source-list{margin-top:8px}.workflow-source-list>strong{display:block;font-size:9px;color:#667085;margin-bottom:5px}
+.workflow-source{display:flex;align-items:center;gap:5px;padding:4px 0;color:#475467;font-size:9px}
+.workflow-recommendation{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:9px;color:#78350f;font-size:10px;line-height:1.6;white-space:pre-wrap}
+.workflow-human-action{display:flex;gap:9px;align-items:flex-start;padding:12px;background:#f0f9ff;border-top:1px solid #e0f2fe;border-bottom:1px solid #e0f2fe}
+.workflow-human-icon{width:28px;height:28px;border-radius:8px;background:#e0f2fe;color:#0369a1;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.workflow-human-action strong{font-size:10px;color:#075985}
+.workflow-human-action p{font-size:10px;line-height:1.5;color:#0369a1;margin:4px 0 0}
+.workflow-technical{margin:10px 12px;border:1px solid #eaecf0;border-radius:7px;padding:8px}
+.workflow-technical summary{cursor:pointer;font-size:10px;font-weight:600;color:#667085}
+.technical-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}
+.technical-grid>div{display:flex;flex-direction:column;gap:3px;background:#f9fafb;border-radius:5px;padding:7px;min-width:0}
+.technical-grid small{font-size:8px;color:#98a2b3;text-transform:uppercase;letter-spacing:.04em}
+.technical-grid strong{font-size:9px;color:#475467;word-break:break-word}
+.technical-error{font-size:9px;color:#b42318}
+.workflow-result-v2 .workflow-note{padding:0 12px 11px;font-size:9px;line-height:1.55}
+@media(max-width:500px){.workflow-hero{flex-wrap:wrap}.workflow-status-pill{margin-left:44px}.technical-grid{grid-template-columns:1fr}}
+
+/* Workflow UI refinement v3: compact, scan-friendly recommendation */
+.workflow-result-v3{padding:0;background:#fff;border:1px solid #e4e7ec;border-radius:12px;overflow:hidden;color:#344054}
+.workflow-result-v3 .workflow-hero{padding:12px 13px;background:linear-gradient(115deg,#f6f3ff,#f8fafc);align-items:center}
+.workflow-result-v3 .workflow-hero-copy strong{font-size:12px}
+.workflow-result-v3 .workflow-hero-copy span{font-size:10px;line-height:1.45}
+.workflow-result-v3 .workflow-status-pill{font-size:9px}
+.workflow-step-list.compact{padding:0 13px}
+.workflow-compact-section{padding:11px 0;border-bottom:1px solid #edf0f3}
+.workflow-section-heading{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px}
+.workflow-section-heading .workflow-step-icon{width:23px;height:23px;margin:0}
+.workflow-section-heading>div{display:flex;flex-direction:column;gap:2px}
+.workflow-section-heading strong{font-size:11px;color:#344054}
+.workflow-section-heading small{font-size:9px;color:#667085;line-height:1.4}
+.workflow-result-v3 .workflow-chips{margin-left:31px;gap:4px}
+.workflow-result-v3 .workflow-chips span{font-size:9px;padding:3px 6px}
+.workflow-summary{margin:7px 0 0 31px;font-size:10px;line-height:1.5;color:#475467}
+.workflow-result-v3 .workflow-route-label{margin-left:31px;font-size:9px;padding:4px 7px}
+.workflow-sources-summary{margin-left:31px;display:flex;align-items:center;flex-wrap:wrap;gap:5px;font-size:10px;color:#667085}
+.workflow-sources-summary strong{font-size:10px;color:#475467}
+.workflow-source-details{flex-basis:100%;margin-top:5px;border:1px solid #e4e7ec;border-radius:7px;padding:6px 8px}
+.workflow-source-details summary{font-size:9px;color:#6941c6;font-weight:600;cursor:pointer}
+.workflow-source-group{padding:7px 0 2px}
+.workflow-source-name{display:flex;align-items:center;gap:5px;font-size:9px;color:#475467;min-width:0}
+.workflow-source-name span{overflow-wrap:anywhere}
+.workflow-source-name small{margin-left:auto;color:#667085;white-space:nowrap}
+.workflow-passage{margin:6px 0 0 18px;border-left:2px solid #e4e7ec;padding:3px 0 3px 7px}
+.workflow-passage>span{font-size:8px;color:#98a2b3}
+.workflow-passage p{font-size:9px;line-height:1.45;color:#667085;margin:3px 0 0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.workflow-no-results{margin:5px 0 0 31px;color:#b54708;font-size:9px}
+.workflow-compact-section.recommendation-section{border-bottom:0;padding-bottom:12px}
+.workflow-step-icon.idea{background:#fffaeb;color:#b54708}
+.workflow-recommendation-v3{margin-left:31px;background:#fffcf5;border:1px solid #f4e1b5;border-radius:8px;padding:9px 10px;color:#59431b;font-size:10px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;max-height:260px;overflow:auto}
+.workflow-human-action{padding:10px 12px}
+.workflow-human-action strong{font-size:10px}
+.workflow-human-action p{font-size:9px;line-height:1.45}
+.workflow-result-v3 .workflow-technical{margin:8px 11px}
+.workflow-result-v3 .workflow-note{display:block;padding:0 11px 10px;font-size:9px;line-height:1.45}
+.workflow-result-v3 .workflow-progress{display:none}
+.workflow-result-v3 .workflow-step-list .workflow-step-card{display:none}
+.workflow-result-v3 .technical-grid{gap:6px}
+.workflow-result-v3 .technical-grid>div{padding:6px}
+.workflow-result-v3 .workflow-technical summary{font-size:9px}
+.draft-box .result-title{font-size:11px}
+.draft-box .result-title span{font-size:9px}
+@media(max-width:520px){.workflow-result-v3 .workflow-hero{align-items:flex-start}.workflow-result-v3 .workflow-status-pill{margin-left:0}.workflow-sources-summary{gap:4px}}
